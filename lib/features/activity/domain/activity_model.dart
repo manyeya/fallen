@@ -17,7 +17,7 @@ class Activity {
       activity: json['activity'] as String,
       type: json['type'] as String,
       participants: json['participants'] as int,
-      price: json['price'] as int,
+      price: json['price'] as double,
     );
   }
 
@@ -25,5 +25,5 @@ class Activity {
   final String activity;
   final String type;
   final int participants;
-  final int price;
+  final double price;
 }

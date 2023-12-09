@@ -2,7 +2,6 @@ import 'dart:convert';
 import '../domain/activity_model.dart';
 import 'package:http/http.dart' as http;
 
-
 abstract class IActivityRepository {
   Future<List<Activity>> getActivities();
   Future<Activity> getActivity();
@@ -12,7 +11,6 @@ abstract class IActivityRepository {
 }
 
 class ActivityRepository implements IActivityRepository {
-
   @override
   Future<List<Activity>> getActivities() async {
     return <Activity>[
@@ -28,12 +26,13 @@ class ActivityRepository implements IActivityRepository {
 
   @override
   Future<Activity> getActivity() async {
-   // Using package:http, we fetch a random activity from the Bored API.
-  final response = await http.get(Uri.https('boredapi.com', '/api/activity'));
-  // Using dart:convert, we then decode the JSON payload into a Map data structure.
-  final json = jsonDecode(response.body) as Map<String, dynamic>;
-  // Finally, we convert the Map into an Activity instance.
-  return Activity.fromJson(json);
+    // Using package:http, we fetch a random activity from the Bored API.
+    final response = await http.get(Uri.https('boredapi.com', '/api/activity'));
+    // Using dart:convert, we then decode the JSON payload into a Map data structure.
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    // Finally, we convert the Map into an Activity instance.
+    print(json);
+    return Activity.fromJson(json);
   }
 
   @override
