@@ -11,7 +11,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     navigatorKey: _key,
     debugLogDiagnostics: true,
-    initialLocation: '/',
+    initialLocation: '/a',
     routes: [
       StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) {
@@ -23,11 +23,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             tabA,
             tabB
           ]),
-      // GoRoute(
-      //   path: '/',
-      //   name: 'welcome',
-      //   builder: (context, state) => const WelcomeScreen(),
-      // )
+      GoRoute(
+        path: '/',
+        name: 'welcome',
+        builder: (context, state) => const Text("Home"),
+      )
     ],
   );
 });

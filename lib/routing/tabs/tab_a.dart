@@ -1,3 +1,4 @@
+import 'package:fallen/features/activity/presentation/screens/activity_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,7 +11,7 @@ var tabA = StatefulShellBranch(
     GoRoute(
       path: '/a',
       pageBuilder: (context, state) => const NoTransitionPage(
-        child: Text('Tab A'),
+        child: ActivityScreen(),
       ),
       routes: const [
         // child routes
