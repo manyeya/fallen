@@ -9,20 +9,30 @@ class ActivityScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activity = ref.watch(activityControllerProvider);
-    return Center(
-      child: Container(
-        child: activity.when(
-          data: (activity) {
-            return SelectableText(
-              activity.activity.toString(),
-              style: const TextStyle(fontSize: 18),
-            );
-          },
-          loading: () => const CircularProgressIndicator(),
-          error: (error, stackTrace) {
-            return Text('Error: $error');
-          },
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Activity'),
+      ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await ref.refresh(activityControllerProvider.notifier).build();
+        },
+        child: ListView(
+          children: [
+            activity.when(
+              data: (activity) {
+                return SelectableText(
+                  activity.activity.toString(),
+                  style: const TextStyle(fontSize: 18),
+                );
+              },
+              loading: () => const CircularProgressIndicator(),
+              error: (error, stackTrace) {
+                return Text('Error: $error');
+              },
+            )
+          ],
+        )
       ),
     );
   }

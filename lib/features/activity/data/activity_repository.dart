@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
+
 import '../domain/activity_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,6 +13,8 @@ abstract class IActivityRepository {
 }
 
 class ActivityRepository implements IActivityRepository {
+  final dio = Dio();
+
   @override
   Future<List<Activity>> getActivities() async {
     return <Activity>[
@@ -20,19 +24,17 @@ class ActivityRepository implements IActivityRepository {
         participants: 1,
         price: 0,
         key: '3943509',
+        link: 'https://www.youtube.com/watch?v=GLSG_Wh_YWc',
       )
     ];
   }
 
   @override
   Future<Activity> getActivity() async {
-    // Using package:http, we fetch a random activity from the Bored API.
-    final response = await http.get(Uri.https('boredapi.com', '/api/activity'));
-    // Using dart:convert, we then decode the JSON payload into a Map data structure.
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
-    // Finally, we convert the Map into an Activity instance.
-    print(json);
-    return Activity.fromJson(json);
+    final Response<dynamic> res =
+        await dio.get('https://boredapi.com/api/activity');
+
+    return Activity.fromJson(res.data);
   }
 
   @override
