@@ -14,26 +14,23 @@ class ActivityScreen extends ConsumerWidget {
         title: const Text('Activity'),
       ),
       body: RefreshIndicator(
-        onRefresh: () async {
-          await ref.refresh(activityControllerProvider.notifier).build();
-        },
-        child: ListView(
-          children: [
-            activity.when(
-              data: (activity) {
-                return SelectableText(
-                  activity.activity.toString(),
-                  style: const TextStyle(fontSize: 18),
+          onRefresh: () async {
+            await ref.refresh(activityControllerProvider.notifier).build();
+          },
+          child: activity.when(
+            data: (activity) {
+              return ListView.builder(itemCount: 1,itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(activity.activity),
+                  subtitle: Text(activity.type),
                 );
-              },
-              loading: () => const CircularProgressIndicator(),
-              error: (error, stackTrace) {
-                return Text('Error: $error');
-              },
-            )
-          ],
-        )
-      ),
+              });
+            },
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (error, stackTrace) {
+              return Text('Error: $error');
+            },
+          )),
     );
   }
 }
